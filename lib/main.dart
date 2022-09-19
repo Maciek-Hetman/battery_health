@@ -17,6 +17,8 @@ class _MyAppState extends State<MyApp> {
   var _rootAccess = false;
   var _cycleCount = "-";
   var _fullCharge = "-";
+  var _batteryHealth = "-";
+  var _designCapacity = "-";
 
   Future<void> checkRoot() async {
     bool result = await Root.isRooted() as bool;
@@ -45,7 +47,33 @@ class _MyAppState extends State<MyApp> {
 
     setState(() {
       _fullCharge = res;
+      checkHealth();
     });
+  }
+
+  Future<void> checkHealth() async {
+    String designCapacity = await Root.exec(
+            cmd: 'cat /sys/class/power_supply/battery/charge_full_design')
+        as String;
+
+    print(designCapacity);
+
+    try {
+      int designCapacityInt = int.parse(designCapacity);
+      int fullChargeInt = int.parse(_fullCharge);
+
+      double batteryHealth = (fullChargeInt / designCapacityInt) * 100;
+
+      setState(() {
+        _designCapacity = designCapacity;
+        _batteryHealth = batteryHealth.toString();
+      });
+    } on FormatException {
+      setState(() {
+        _batteryHealth = "Could not fetch battery health";
+        _designCapacity = "Something went wrong.";
+      });
+    }
   }
 
   @override
@@ -66,7 +94,9 @@ class _MyAppState extends State<MyApp> {
             children: [
               Text("Root access status: $_rootAccess"),
               Text("Cycle count: $_cycleCount "),
-              Text("Full charge: $_fullCharge")
+              Text("Full charge: $_fullCharge"),
+              Text("Design capacity: $_designCapacity"),
+              Text("Battery health: $_batteryHealth")
             ],
           )),
     );

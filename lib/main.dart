@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
       home: Scaffold(
           appBar: AppBar(
-            title: Text("Root access test"),
+            title: Text("Battery health"),
           ),
           body: Column(
             children: [
@@ -97,7 +97,7 @@ class _MyAppState extends State<MyApp> {
               Text("Cycle count: $_cycleCount "),
               Text("Full charge: $_fullCharge"),
               Text("Design capacity: $_designCapacity"),
-              Text("Battery health: $_batteryHealth")
+              Text("Battery health: $_batteryHealth%")
             ],
           )),
     );

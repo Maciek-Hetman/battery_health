@@ -20,7 +20,6 @@ class _MyAppState extends State<MyApp> {
   var _cycleCount = "-";
   var _fullCharge = "-";
   var _batteryHealth = "-";
-  var _designCapacity = "-";
 
   var _fullChargeReadable = "- mAh";
   var _designCapacityReadable = "- mAh";
@@ -70,7 +69,6 @@ class _MyAppState extends State<MyApp> {
       double batteryHealth = (fullChargeInt / designCapacityInt) * 100;
 
       setState(() {
-        _designCapacity = designCapacity;
         _designCapacityReadable =
             (int.parse(designCapacity) / 1000).toStringAsFixed(0) + " mAh";
         _batteryHealth = batteryHealth.toStringAsFixed(1);

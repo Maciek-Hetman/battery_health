@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
 
       setState(() {
         _designCapacity = designCapacity;
-        _batteryHealth = batteryHealth.toString();
+        _batteryHealth = batteryHealth.toStringAsFixed(2);
       });
     } on FormatException {
       setState(() {

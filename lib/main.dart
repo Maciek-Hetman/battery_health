@@ -76,7 +76,6 @@ class _MyAppState extends State<MyApp> {
     } on FormatException {
       setState(() {
         _batteryHealth = "Could not fetch battery health";
-        _designCapacity = "Something went wrong.";
       });
     }
   }

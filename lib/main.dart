@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Column(
             children: [
-              Padding(padding: EdgeInsets.all(5)),
+              const Padding(padding: EdgeInsets.all(5)), // Thanks vscode
               CustomCard("Root access: $_rootAccess"),
               CustomCard("Cycle count: $_cycleCount "),
               CustomCard("Full charge: $_fullCharge"),

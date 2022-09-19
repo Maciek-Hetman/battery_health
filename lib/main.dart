@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:root/root.dart';
 
-import 'dart:io';
 import 'dart:async';
 
 import './cardWidget.dart';
@@ -19,7 +18,7 @@ class _MyAppState extends State<MyApp> {
   var _rootAccess = false;
   var _cycleCount = "-";
   var _fullCharge = "-";
-  var _batteryHealth = "-";
+  var _batteryHealth = "- ";
 
   var _fullChargeReadable = "- mAh";
   var _designCapacityReadable = "- mAh";
@@ -98,11 +97,10 @@ class _MyAppState extends State<MyApp> {
           body: Column(
             children: [
               const Padding(padding: EdgeInsets.all(5)), // Thanks vscode
-              CustomCard("Root access: $_rootAccess"),
+              CustomCard("Battery health: $_batteryHealth%"),
               CustomCard("Cycle count: $_cycleCount "),
               CustomCard("Full charge: $_fullChargeReadable"),
               CustomCard("Design capacity: $_designCapacityReadable"),
-              CustomCard("Battery health: $_batteryHealth%")
             ],
           )),
     );

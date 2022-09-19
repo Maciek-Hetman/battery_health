@@ -22,6 +22,9 @@ class _MyAppState extends State<MyApp> {
   var _batteryHealth = "-";
   var _designCapacity = "-";
 
+  var _fullChargeReadable = "- mAh";
+  var _designCapacityReadable = "- mAh";
+
   Future<void> checkRoot() async {
     bool result = await Root.isRooted() as bool;
 
@@ -38,7 +41,7 @@ class _MyAppState extends State<MyApp> {
             as String;
 
     setState(() {
-      _cycleCount = res;
+      _cycleCount = res.replaceAll("\n", "");
     });
   }
 
@@ -49,6 +52,8 @@ class _MyAppState extends State<MyApp> {
 
     setState(() {
       _fullCharge = res;
+      _fullChargeReadable =
+          (int.parse(res) / 1000).toStringAsFixed(0) + " mAh"; // Truly amazing
       checkHealth();
     });
   }
@@ -58,8 +63,6 @@ class _MyAppState extends State<MyApp> {
             cmd: 'cat /sys/class/power_supply/battery/charge_full_design')
         as String;
 
-    print(designCapacity);
-
     try {
       int designCapacityInt = int.parse(designCapacity);
       int fullChargeInt = int.parse(_fullCharge);
@@ -68,7 +71,9 @@ class _MyAppState extends State<MyApp> {
 
       setState(() {
         _designCapacity = designCapacity;
-        _batteryHealth = batteryHealth.toStringAsFixed(2);
+        _designCapacityReadable =
+            (int.parse(designCapacity) / 1000).toStringAsFixed(0) + " mAh";
+        _batteryHealth = batteryHealth.toStringAsFixed(1);
       });
     } on FormatException {
       setState(() {
@@ -98,8 +103,8 @@ class _MyAppState extends State<MyApp> {
               const Padding(padding: EdgeInsets.all(5)), // Thanks vscode
               CustomCard("Root access: $_rootAccess"),
               CustomCard("Cycle count: $_cycleCount "),
-              CustomCard("Full charge: $_fullCharge"),
-              CustomCard("Design capacity: $_designCapacity"),
+              CustomCard("Full charge: $_fullChargeReadable"),
+              CustomCard("Design capacity: $_designCapacityReadable"),
               CustomCard("Battery health: $_batteryHealth%")
             ],
           )),

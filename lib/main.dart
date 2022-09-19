@@ -4,6 +4,8 @@ import 'package:root/root.dart';
 import 'dart:io';
 import 'dart:async';
 
+import './cardWidget.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -89,15 +91,15 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
       home: Scaffold(
           appBar: AppBar(
-            title: Text("Battery health"),
+            title: const Text("Battery health"), // Thanks vscode
           ),
           body: Column(
             children: [
-              Text("Root access status: $_rootAccess"),
-              Text("Cycle count: $_cycleCount "),
-              Text("Full charge: $_fullCharge"),
-              Text("Design capacity: $_designCapacity"),
-              Text("Battery health: $_batteryHealth%")
+              CustomCard("Root access: $_rootAccess"),
+              CustomCard("Cycle count: $_cycleCount "),
+              CustomCard("Full charge: $_fullCharge"),
+              CustomCard("Design capacity: $_designCapacity"),
+              CustomCard("Battery health: $_batteryHealth%")
             ],
           )),
     );

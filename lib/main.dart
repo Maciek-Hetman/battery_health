@@ -95,6 +95,7 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Column(
             children: [
+              Padding(padding: EdgeInsets.all(5)),
               CustomCard("Root access: $_rootAccess"),
               CustomCard("Cycle count: $_cycleCount "),
               CustomCard("Full charge: $_fullCharge"),

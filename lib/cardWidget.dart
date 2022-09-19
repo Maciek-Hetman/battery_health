@@ -12,6 +12,7 @@ class CustomCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
       child: Card(
           child: Padding(
         padding: EdgeInsets.all(20),

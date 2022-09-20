@@ -105,7 +105,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
+      theme: ThemeData(useMaterial3: true, brightness: Brightness.light),
+      darkTheme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
+      themeMode: ThemeMode.system,
       home: Scaffold(
           appBar: AppBar(
             title: const Text(

@@ -4,7 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 
 import 'dart:async';
 
-import './cardWidget.dart';
+import './card_widget.dart';
 
 void main() => runApp(MyApp());
 

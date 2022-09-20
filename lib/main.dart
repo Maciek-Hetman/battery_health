@@ -152,6 +152,7 @@ class _MyAppState extends State<MyApp> {
               CustomCard("Device: $_deviceName"),
               CustomCard("Manufacturer: $_deviceManufacturer"),
               CustomCard("Android version: $_deviceAndroidVersion"),
+              CustomCard("Root access: $_rootAccess"),
             ],
           )),
     );

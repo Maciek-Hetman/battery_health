@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:root/root.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 import 'dart:async';
 
@@ -23,6 +24,20 @@ class _MyAppState extends State<MyApp> {
   var _fullChargeReadable = "- mAh";
   var _designCapacityReadable = "- mAh";
 
+  var _deviceName;
+  var _deviceAndroidVersion;
+  var _deviceManufacturer;
+
+  Future<void> getDeviceInfo() async {
+    AndroidDeviceInfo deviceInfo = await DeviceInfoPlugin().androidInfo;
+
+    setState(() {
+      _deviceName = deviceInfo.device;
+      _deviceManufacturer = deviceInfo.manufacturer;
+      _deviceAndroidVersion = deviceInfo.version.release;
+    });
+  }
+
   Future<void> checkRoot() async {
     bool result = await Root.isRooted() as bool;
 
@@ -30,6 +45,7 @@ class _MyAppState extends State<MyApp> {
       _rootAccess = result;
       checkCycleCount();
       checkFullCharge();
+      getDeviceInfo();
     });
   }
 
@@ -51,7 +67,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _fullCharge = res;
       _fullChargeReadable =
-          (int.parse(res) / 1000).toStringAsFixed(0) + " mAh"; // Truly amazing
+          "${(int.parse(res) / 1000).toStringAsFixed(0)} mAh"; // Truly amazing
       checkHealth();
     });
   }
@@ -69,7 +85,7 @@ class _MyAppState extends State<MyApp> {
 
       setState(() {
         _designCapacityReadable =
-            (int.parse(designCapacity) / 1000).toStringAsFixed(0) + " mAh";
+            "${(int.parse(designCapacity) / 1000).toStringAsFixed(0)} mAh";
         _batteryHealth = batteryHealth.toStringAsFixed(1);
       });
     } on FormatException {
@@ -92,15 +108,48 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
       home: Scaffold(
           appBar: AppBar(
-            title: const Text("Battery health"), // Thanks vscode
+            title: const Text(
+              "Battery health",
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            toolbarHeight: 120,
           ),
-          body: Column(
+          body: ListView(
             children: [
-              const Padding(padding: EdgeInsets.all(5)), // Thanks vscode
+              const Padding(padding: EdgeInsets.all(3)), // Thanks vscode
+
+              // Battery info widgets
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+                child: const Text(
+                  "Battery info",
+                  style: TextStyle(
+                    fontSize: 30,
+                    // fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               CustomCard("Battery health: $_batteryHealth%"),
               CustomCard("Cycle count: $_cycleCount "),
               CustomCard("Full charge: $_fullChargeReadable"),
               CustomCard("Design capacity: $_designCapacityReadable"),
+
+              // Device info widgets
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+                child: const Text(
+                  "Device info",
+                  style: TextStyle(
+                    fontSize: 30,
+                    // fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              CustomCard("Device: $_deviceName"),
+              CustomCard("Manufacturer: $_deviceManufacturer"),
+              CustomCard("Android version: $_deviceAndroidVersion"),
             ],
           )),
     );

@@ -125,7 +125,7 @@ class _MyAppState extends State<MyApp> {
             brightness: Brightness.dark,
           );
         }
-
+        // MOVE THAT AWAY FROM HERE
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

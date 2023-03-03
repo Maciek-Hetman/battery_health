@@ -17,6 +17,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _materialBlue = Color(0x002196f3);
+
   var _rootAccess = false;
   var _cycleCount = "-";
   var _fullCharge = "-";
@@ -113,14 +115,13 @@ class _MyAppState extends State<MyApp> {
 
         if (lightDynamic != null && darkDynamic != null) {
           lightColorScheme = lightDynamic.harmonized();
-
           darkColorScheme = darkDynamic.harmonized();
         } else {
           lightColorScheme = ColorScheme.fromSeed(
-            seedColor: const Color(0x002196f3),
+            seedColor: _materialBlue,
           );
           darkColorScheme = ColorScheme.fromSeed(
-            seedColor: const Color(0x002196f3),
+            seedColor: _materialBlue,
             brightness: Brightness.dark,
           );
         }
@@ -137,39 +138,36 @@ class _MyAppState extends State<MyApp> {
               colorScheme: darkColorScheme),
           themeMode: ThemeMode.system,
           home: Scaffold(
-              appBar: AppBar(
-                title: const Text(
-                  "Battery health",
-                  style: TextStyle(fontSize: 30),
-                ),
-                toolbarHeight: 120,
-                elevation: 4,
-              ),
-              body: ListView(
-                children: [
-                  const Padding(padding: EdgeInsets.all(3)), // Thanks vscode
-
-                  // Battery info widgets
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
-                    child: const Text(
-                      "Battery info",
-                      style: TextStyle(
-                        fontSize: 30,
-                        // fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              body: CustomScrollView(
+            slivers: <Widget>[
+              const SliverAppBar(
+                expandedHeight: 150,
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Text(
+                    "Battery health",
+                    style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 34,
+                        fontWeight: FontWeight.w400),
                   ),
-                  CustomCard("Battery health: $_batteryHealth%"),
-                  CustomCard("Cycle count: $_cycleCount "),
+                  titlePadding:
+                      EdgeInsetsDirectional.only(start: 24, bottom: 30),
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
+                      child: const Text('Battery info',
+                          style: TextStyle(fontSize: 30))),
+                  CustomCard("Battery health $_batteryHealth%"),
+                  CustomCard("Cycle count: $_cycleCount"),
                   CustomCard("Full charge: $_fullChargeReadable"),
                   CustomCard("Design capacity: $_designCapacityReadable"),
-
-                  // Device info widgets
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 12),
                     child: const Text(
                       "Device info",
                       style: TextStyle(
@@ -182,8 +180,10 @@ class _MyAppState extends State<MyApp> {
                   CustomCard("Manufacturer: $_deviceManufacturer"),
                   CustomCard("Android version: $_deviceAndroidVersion"),
                   CustomCard("Root access: $_rootAccess"),
-                ],
-              )),
+                ]),
+              )
+            ],
+          )),
         );
       },
     );

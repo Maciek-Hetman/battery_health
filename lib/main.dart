@@ -1,3 +1,4 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:root/root.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -73,6 +74,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> checkHealth() async {
+    double? scrolledUnderElevation;
+
     String designCapacity = await Root.exec(
             cmd: 'cat /sys/class/power_supply/battery/charge_full_design')
         as String;
@@ -103,58 +106,86 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true, brightness: Brightness.light),
-      darkTheme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
-      themeMode: ThemeMode.system,
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              "Battery health",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            toolbarHeight: 120,
-          ),
-          body: ListView(
-            children: [
-              const Padding(padding: EdgeInsets.all(3)), // Thanks vscode
+    return DynamicColorBuilder(
+      builder: (lightDynamic, darkDynamic) {
+        ColorScheme lightColorScheme;
+        ColorScheme darkColorScheme;
 
-              // Battery info widgets
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
-                child: const Text(
-                  "Battery info",
-                  style: TextStyle(
-                    fontSize: 30,
-                    // fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              CustomCard("Battery health: $_batteryHealth%"),
-              CustomCard("Cycle count: $_cycleCount "),
-              CustomCard("Full charge: $_fullChargeReadable"),
-              CustomCard("Design capacity: $_designCapacityReadable"),
+        if (lightDynamic != null && darkDynamic != null) {
+          lightColorScheme = lightDynamic.harmonized();
 
-              // Device info widgets
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
-                child: const Text(
-                  "Device info",
-                  style: TextStyle(
-                    fontSize: 30,
-                    // fontWeight: FontWeight.bold,
-                  ),
+          darkColorScheme = darkDynamic.harmonized();
+        } else {
+          lightColorScheme = ColorScheme.fromSeed(
+            seedColor: const Color(0x002196f3),
+          );
+          darkColorScheme = ColorScheme.fromSeed(
+            seedColor: const Color(0x002196f3),
+            brightness: Brightness.dark,
+          );
+        }
+
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              useMaterial3: true,
+              brightness: Brightness.light,
+              colorScheme: lightColorScheme),
+          darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              useMaterial3: true,
+              colorScheme: darkColorScheme),
+          themeMode: ThemeMode.system,
+          home: Scaffold(
+              appBar: AppBar(
+                title: const Text(
+                  "Battery health",
+                  style: TextStyle(fontSize: 30),
                 ),
+                toolbarHeight: 120,
+                elevation: 4,
               ),
-              CustomCard("Device: $_deviceName"),
-              CustomCard("Manufacturer: $_deviceManufacturer"),
-              CustomCard("Android version: $_deviceAndroidVersion"),
-              CustomCard("Root access: $_rootAccess"),
-            ],
-          )),
+              body: ListView(
+                children: [
+                  const Padding(padding: EdgeInsets.all(3)), // Thanks vscode
+
+                  // Battery info widgets
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+                    child: const Text(
+                      "Battery info",
+                      style: TextStyle(
+                        fontSize: 30,
+                        // fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  CustomCard("Battery health: $_batteryHealth%"),
+                  CustomCard("Cycle count: $_cycleCount "),
+                  CustomCard("Full charge: $_fullChargeReadable"),
+                  CustomCard("Design capacity: $_designCapacityReadable"),
+
+                  // Device info widgets
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
+                    child: const Text(
+                      "Device info",
+                      style: TextStyle(
+                        fontSize: 30,
+                        // fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  CustomCard("Device: $_deviceName"),
+                  CustomCard("Manufacturer: $_deviceManufacturer"),
+                  CustomCard("Android version: $_deviceAndroidVersion"),
+                  CustomCard("Root access: $_rootAccess"),
+                ],
+              )),
+        );
+      },
     );
   }
 }

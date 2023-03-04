@@ -1,3 +1,4 @@
+import 'package:battery_health/BatteryHealthView.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:root/root.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _materialBlue = Color(0x002196f3);
+  final _materialBlue = const Color(0x002196f3);
 
   var _rootAccess = false;
   var _cycleCount = "-";
@@ -46,8 +47,12 @@ class _MyAppState extends State<MyApp> {
 
     setState(() {
       _rootAccess = result;
-      checkCycleCount();
-      checkFullCharge();
+
+      if (result) {
+        checkCycleCount();
+        checkFullCharge();
+      }
+
       getDeviceInfo();
     });
   }
@@ -137,53 +142,15 @@ class _MyAppState extends State<MyApp> {
               useMaterial3: true,
               colorScheme: darkColorScheme),
           themeMode: ThemeMode.system,
-          home: Scaffold(
-              body: CustomScrollView(
-            slivers: <Widget>[
-              const SliverAppBar(
-                expandedHeight: 150,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(
-                    "Battery health",
-                    style: TextStyle(
-                        fontFamily: "Roboto",
-                        fontSize: 34,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  titlePadding:
-                      EdgeInsetsDirectional.only(start: 24, bottom: 30),
-                ),
-              ),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 12),
-                      child: const Text('Battery info',
-                          style: TextStyle(fontSize: 30))),
-                  CustomCard("Battery health $_batteryHealth%"),
-                  CustomCard("Cycle count: $_cycleCount"),
-                  CustomCard("Full charge: $_fullChargeReadable"),
-                  CustomCard("Design capacity: $_designCapacityReadable"),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 12),
-                    child: const Text(
-                      "Device info",
-                      style: TextStyle(
-                        fontSize: 30,
-                        // fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  CustomCard("Device: $_deviceName"),
-                  CustomCard("Manufacturer: $_deviceManufacturer"),
-                  CustomCard("Android version: $_deviceAndroidVersion"),
-                  CustomCard("Root access: $_rootAccess"),
-                ]),
-              )
-            ],
-          )),
+          home: BatteryHealthView(
+              _batteryHealth,
+              _cycleCount,
+              _fullChargeReadable,
+              _designCapacityReadable,
+              _deviceName,
+              _deviceManufacturer,
+              _deviceAndroidVersion,
+              _rootAccess),
         );
       },
     );

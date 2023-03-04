@@ -1,5 +1,7 @@
+import 'package:battery_health/no_battery_info_view.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:root/root.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
@@ -32,8 +34,15 @@ class _MyAppState extends State<MyApp> {
   var _deviceAndroidVersion;
   var _deviceManufacturer;
 
-  List<Widget> _pages = [
-    Text("Fetching battery info"),
+  final List<Widget> _pages = [
+    const Center(
+        child: Padding(
+      padding: EdgeInsets.all(150),
+      child: LoadingIndicator(
+        indicatorType: Indicator.ballRotateChase,
+        colors: [Colors.blue],
+      ),
+    )),
     const Text("Fetching device info...")
   ];
   int _index = 0;
@@ -52,24 +61,28 @@ class _MyAppState extends State<MyApp> {
     bool result = await Root.isRooted() as bool;
     _rootAccess = result;
 
-    if (result) {
+    if (_rootAccess == true) {
       await checkCycleCount();
       await checkFullCharge();
+      await getDeviceInfo();
+
+      setState(() {
+        _pages[0] = BatteryHealthView(
+            _batteryHealth,
+            _cycleCount,
+            _fullChargeReadable,
+            _designCapacityReadable,
+            _deviceName,
+            _deviceManufacturer,
+            _deviceAndroidVersion,
+            _rootAccess);
+      });
+    } else {
+      await getDeviceInfo();
+      setState(() {
+        _pages[0] = NoBatteryInfoView(_rootAccess);
+      });
     }
-
-    await getDeviceInfo();
-
-    setState(() {
-      _pages[0] = BatteryHealthView(
-          _batteryHealth,
-          _cycleCount,
-          _fullChargeReadable,
-          _designCapacityReadable,
-          _deviceName,
-          _deviceManufacturer,
-          _deviceAndroidVersion,
-          _rootAccess);
-    });
   }
 
   Future<void> checkCycleCount() async {

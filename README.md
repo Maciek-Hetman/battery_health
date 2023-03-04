@@ -2,7 +2,7 @@
 
  Check battery health of your Android phone. Requires root access.
 
-## ONLY TESTED ON ANDROID 12
+## ONLY TESTED ON ANDROID 12 and 13
 
 Tested devices:
 

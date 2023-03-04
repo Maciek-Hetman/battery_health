@@ -41,7 +41,7 @@ class DeviceInfoView extends StatelessWidget {
             CustomCard("Brand: $_deviceBrand"),
             CustomCard("Manufacturer: $_deviceManufacturer"),
             CustomCard("Android version: $_deviceAndroidVersion"),
-            CustomCard("Root access: $_rootAccess"),
+            CustomCard("Root access: ${_rootAccess ? "Yes" : "No"}"),
             CustomCard("Board: $_deviceBoard"),
           ]),
         )

@@ -2,13 +2,11 @@ import 'package:battery_health/device_info_view.dart';
 import 'package:battery_health/no_battery_info_view.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 import 'package:root/root.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 import 'dart:async';
 
-import './card_widget.dart';
 import './battery_health_view.dart';
 import './loading_screen.dart';
 

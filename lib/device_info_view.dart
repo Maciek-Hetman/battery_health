@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:system_info2/system_info2.dart';
+
 import './card_widget.dart';
 
 class DeviceInfoView extends StatelessWidget {
@@ -9,7 +11,13 @@ class DeviceInfoView extends StatelessWidget {
   final _deviceBrand;
   final _rootAccess;
 
-  const DeviceInfoView(
+  final _kernelArch = SysInfo.kernelArchitecture;
+  final _kernelBitness = SysInfo.kernelBitness;
+  final _kernelVersion = SysInfo.kernelVersion;
+  final _cores = SysInfo.cores;
+  final _totalMemory = SysInfo.getTotalPhysicalMemory();
+
+  DeviceInfoView(
       this._deviceName,
       this._deviceManufacturer,
       this._deviceAndroidVersion,
@@ -43,6 +51,12 @@ class DeviceInfoView extends StatelessWidget {
             CustomCard("Android version: $_deviceAndroidVersion"),
             CustomCard("Root access: ${_rootAccess ? "Yes" : "No"}"),
             CustomCard("Board: $_deviceBoard"),
+            CustomCard(
+                "Total RAM: ${num.parse((_totalMemory / 1000 / 1000 / 1000).toStringAsFixed(2))} GB"),
+            CustomCard("Kernel architecture: $_kernelArch"),
+            CustomCard("Kernel bitness: $_kernelBitness bit"),
+            CustomCard("Kernel version: $_kernelVersion"),
+            CustomCard("Amount of cores: ${_cores.length}"),
           ]),
         )
       ],

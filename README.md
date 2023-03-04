@@ -12,7 +12,10 @@ Tested devices:
 
 The app is built using Flutter and Material3 (Also known as Material You) design. Monet engine does not work. 
 
-![Current state of app](screenshots/screenshot.jpg)
+## Screenshots
+
+![Current state of app](screenshots/screenshot1.jpg)
+![Current state of app](screenshots/screenshot2.jpg)
 
 ### To-do
 

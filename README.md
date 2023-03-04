@@ -6,8 +6,9 @@
 
 Tested devices:
 
-- Redmi Note 8 Pro, CherishOS 4.5 
-- Xiaomi 12X, Xiaomi.eu idk what version
+- Redmi Note 8 Pro, CherishOS 4.5, Magisk 25.2
+- Xiaomi 12X, Xiaomi.eu idk what version, Magisk 25.2
+- Samsung Galaxy Note 9, OneUI 4, No root
 
 The app is built using Flutter and Material3 (Also known as Material You) design. Monet engine does not work. 
 

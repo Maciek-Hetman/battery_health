@@ -1,4 +1,3 @@
-import 'package:battery_health/BatteryHealthView.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:root/root.dart';
@@ -7,6 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'dart:async';
 
 import './card_widget.dart';
+import './battery_health_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,6 +32,12 @@ class _MyAppState extends State<MyApp> {
   var _deviceAndroidVersion;
   var _deviceManufacturer;
 
+  List<Widget> _pages = [
+    Text("Fetching battery info"),
+    const Text("Fetching device info...")
+  ];
+  int _index = 0;
+
   Future<void> getDeviceInfo() async {
     AndroidDeviceInfo deviceInfo = await DeviceInfoPlugin().androidInfo;
 
@@ -44,16 +50,25 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> checkRoot() async {
     bool result = await Root.isRooted() as bool;
+    _rootAccess = result;
+
+    if (result) {
+      await checkCycleCount();
+      await checkFullCharge();
+    }
+
+    await getDeviceInfo();
 
     setState(() {
-      _rootAccess = result;
-
-      if (result) {
-        checkCycleCount();
-        checkFullCharge();
-      }
-
-      getDeviceInfo();
+      _pages[0] = BatteryHealthView(
+          _batteryHealth,
+          _cycleCount,
+          _fullChargeReadable,
+          _designCapacityReadable,
+          _deviceName,
+          _deviceManufacturer,
+          _deviceAndroidVersion,
+          _rootAccess);
     });
   }
 
@@ -81,8 +96,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> checkHealth() async {
-    double? scrolledUnderElevation;
-
     String designCapacity = await Root.exec(
             cmd: 'cat /sys/class/power_supply/battery/charge_full_design')
         as String;
@@ -132,26 +145,34 @@ class _MyAppState extends State<MyApp> {
         }
         // MOVE THAT AWAY FROM HERE
         return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-              useMaterial3: true,
-              brightness: Brightness.light,
-              colorScheme: lightColorScheme),
-          darkTheme: ThemeData(
-              brightness: Brightness.dark,
-              useMaterial3: true,
-              colorScheme: darkColorScheme),
-          themeMode: ThemeMode.system,
-          home: BatteryHealthView(
-              _batteryHealth,
-              _cycleCount,
-              _fullChargeReadable,
-              _designCapacityReadable,
-              _deviceName,
-              _deviceManufacturer,
-              _deviceAndroidVersion,
-              _rootAccess),
-        );
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+                useMaterial3: true,
+                brightness: Brightness.light,
+                colorScheme: lightColorScheme),
+            darkTheme: ThemeData(
+                brightness: Brightness.dark,
+                useMaterial3: true,
+                colorScheme: darkColorScheme),
+            themeMode: ThemeMode.system,
+            home: Scaffold(
+                bottomNavigationBar: BottomNavigationBar(
+                  items: const <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.battery_4_bar_rounded),
+                        label: 'Battery info'),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.phonelink_setup_rounded),
+                        label: 'Device info'),
+                  ],
+                  currentIndex: _index,
+                  onTap: (index) {
+                    setState(() {
+                      _index = index;
+                    });
+                  },
+                ),
+                body: _pages[_index]));
       },
     );
   }

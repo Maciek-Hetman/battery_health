@@ -24,8 +24,7 @@ class BatteryHealthView extends StatelessWidget {
       {super.key});
 
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: CustomScrollView(
+    return CustomScrollView(
       slivers: <Widget>[
         const SliverAppBar(
           expandedHeight: 150,
@@ -68,6 +67,6 @@ class BatteryHealthView extends StatelessWidget {
           ]),
         )
       ],
-    ));
+    );
   }
 }

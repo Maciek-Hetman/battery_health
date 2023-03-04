@@ -14,8 +14,8 @@ The app is built using Flutter and Material3 (Also known as Material You) design
 
 ## Screenshots
 
-![Current state of app](screenshots/screenshot1.jpg)
-![Current state of app](screenshots/screenshot2.jpg)
+![Current state of app](screenshots/screenshot1.png)
+![Current state of app](screenshots/screenshot2.png)
 
 ### To-do
 

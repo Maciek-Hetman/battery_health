@@ -1,3 +1,4 @@
+import 'package:battery_health/device_info_view.dart';
 import 'package:battery_health/no_battery_info_view.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'dart:async';
 
 import './card_widget.dart';
 import './battery_health_view.dart';
+import './loading_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,17 +35,12 @@ class _MyAppState extends State<MyApp> {
   var _deviceName;
   var _deviceAndroidVersion;
   var _deviceManufacturer;
+  var _deviceBoard;
+  var _deviceBrand;
 
   final List<Widget> _pages = [
-    const Center(
-        child: Padding(
-      padding: EdgeInsets.all(150),
-      child: LoadingIndicator(
-        indicatorType: Indicator.ballRotateChase,
-        colors: [Colors.blue],
-      ),
-    )),
-    const Text("Fetching device info...")
+    const LoadingScreen(),
+    const LoadingScreen(),
   ];
   int _index = 0;
 
@@ -54,6 +51,8 @@ class _MyAppState extends State<MyApp> {
       _deviceName = deviceInfo.device;
       _deviceManufacturer = deviceInfo.manufacturer;
       _deviceAndroidVersion = deviceInfo.version.release;
+      _deviceBoard = deviceInfo.board;
+      _deviceBrand = deviceInfo.brand;
     });
   }
 
@@ -76,11 +75,16 @@ class _MyAppState extends State<MyApp> {
             _deviceManufacturer,
             _deviceAndroidVersion,
             _rootAccess);
+
+        _pages[1] = DeviceInfoView(_deviceName, _deviceManufacturer,
+            _deviceAndroidVersion, _deviceBoard, _deviceBrand, _rootAccess);
       });
     } else {
       await getDeviceInfo();
       setState(() {
         _pages[0] = NoBatteryInfoView(_rootAccess);
+        _pages[1] = DeviceInfoView(_deviceName, _deviceManufacturer,
+            _deviceAndroidVersion, _deviceBoard, _deviceBrand, _rootAccess);
       });
     }
   }

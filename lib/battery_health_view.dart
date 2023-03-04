@@ -41,29 +41,10 @@ class BatteryHealthView extends StatelessWidget {
         ),
         SliverList(
           delegate: SliverChildListDelegate([
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                child:
-                    const Text('Battery info', style: TextStyle(fontSize: 30))),
             CustomCard("Battery health $_batteryHealth%"),
             CustomCard("Cycle count: $_cycleCount"),
             CustomCard("Full charge: $_fullChargeReadable"),
             CustomCard("Design capacity: $_designCapacityReadable"),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              child: const Text(
-                "Device info",
-                style: TextStyle(
-                  fontSize: 30,
-                  // fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            CustomCard("Device: $_deviceName"),
-            CustomCard("Manufacturer: $_deviceManufacturer"),
-            CustomCard("Android version: $_deviceAndroidVersion"),
-            CustomCard("Root access: $_rootAccess"),
           ]),
         )
       ],

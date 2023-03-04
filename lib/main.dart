@@ -22,6 +22,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final _materialBlue = const Color(0x002196f3);
 
+  final _controller = ScrollController();
+
   var _rootAccess = false;
   var _cycleCount = "-";
   var _fullCharge = "-";
@@ -160,34 +162,35 @@ class _MyAppState extends State<MyApp> {
         }
         // MOVE THAT AWAY FROM HERE
         return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-                useMaterial3: true,
-                brightness: Brightness.light,
-                colorScheme: lightColorScheme),
-            darkTheme: ThemeData(
-                brightness: Brightness.dark,
-                useMaterial3: true,
-                colorScheme: darkColorScheme),
-            themeMode: ThemeMode.system,
-            home: Scaffold(
-                bottomNavigationBar: BottomNavigationBar(
-                  items: const <BottomNavigationBarItem>[
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.battery_4_bar_rounded),
-                        label: 'Battery info'),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.phonelink_setup_rounded),
-                        label: 'Device info'),
-                  ],
-                  currentIndex: _index,
-                  onTap: (index) {
-                    setState(() {
-                      _index = index;
-                    });
-                  },
-                ),
-                body: _pages[_index]));
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              useMaterial3: true,
+              brightness: Brightness.light,
+              colorScheme: lightColorScheme),
+          darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              useMaterial3: true,
+              colorScheme: darkColorScheme),
+          themeMode: ThemeMode.system,
+          home: Scaffold(
+              bottomNavigationBar: BottomNavigationBar(
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.battery_4_bar_rounded),
+                      label: 'Battery info'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.phonelink_setup_rounded),
+                      label: 'Device info'),
+                ],
+                currentIndex: _index,
+                onTap: (index) {
+                  setState(() {
+                    _index = index;
+                  });
+                },
+              ),
+              body: _pages[_index]),
+        );
       },
     );
   }

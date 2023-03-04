@@ -16,7 +16,7 @@ class CustomCard extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Text(
           _text,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
         ),
       )),
     );

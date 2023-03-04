@@ -10,7 +10,16 @@ Tested devices:
 - Xiaomi 12X, Xiaomi.eu idk what version, Magisk 25.2
 - Samsung Galaxy Note 9, OneUI 4, No root
 
-The app is built using Flutter and Material3 (Also known as Material You) design. Monet engine does not work. 
+The app is built using Flutter and Material3 (Also known as Material You) design. Monet engine does work.
+
+Features:
+
+- Battery health percentage*
+- Cycle count*
+- Full charge and design capacity values*
+- Basic device info
+
+* - these features work only with rooted devices
 
 ## Screenshots
 

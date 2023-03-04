@@ -17,6 +17,8 @@ class DeviceInfoView extends StatelessWidget {
   final _cores = SysInfo.cores;
   final _totalMemory = SysInfo.getTotalPhysicalMemory();
 
+  final _controller = ScrollController();
+
   DeviceInfoView(
       this._deviceName,
       this._deviceManufacturer,
@@ -28,39 +30,45 @@ class DeviceInfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        const SliverAppBar(
-          expandedHeight: 150,
-          flexibleSpace: FlexibleSpaceBar(
-            title: Text(
-              "Device info",
-              style: TextStyle(
-                  fontFamily: "Roboto",
-                  fontSize: 34,
-                  fontWeight: FontWeight.w400),
-            ),
-            titlePadding: EdgeInsetsDirectional.only(start: 24, bottom: 30),
-          ),
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            CustomCard("Device: $_deviceName"),
-            CustomCard("Brand: $_deviceBrand"),
-            CustomCard("Manufacturer: $_deviceManufacturer"),
-            CustomCard("Android version: $_deviceAndroidVersion"),
-            CustomCard("Root access: ${_rootAccess ? "Yes" : "No"}"),
-            CustomCard("Board: $_deviceBoard"),
-            CustomCard(
-                "Total RAM: ${num.parse((_totalMemory / 1000 / 1000 / 1000).toStringAsFixed(2))} GB"),
-            CustomCard("Kernel architecture: $_kernelArch"),
-            CustomCard("Kernel bitness: $_kernelBitness bit"),
-            CustomCard("Kernel version: $_kernelVersion"),
-            CustomCard("Amount of cores: ${_cores.length}"),
-          ]),
-        )
-      ],
-    );
+    return PrimaryScrollController(
+        controller: _controller,
+        child: Scrollbar(
+            interactive: false,
+            radius: const Radius.circular(4),
+            child: CustomScrollView(
+              slivers: <Widget>[
+                const SliverAppBar(
+                  expandedHeight: 150,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Text(
+                      "Device info",
+                      style: TextStyle(
+                          fontFamily: "Roboto",
+                          fontSize: 32,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    titlePadding:
+                        EdgeInsetsDirectional.only(start: 24, bottom: 30),
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    CustomCard("Device: $_deviceName"),
+                    CustomCard("Brand: $_deviceBrand"),
+                    CustomCard("Manufacturer: $_deviceManufacturer"),
+                    CustomCard("Android version: $_deviceAndroidVersion"),
+                    CustomCard("Root access: ${_rootAccess ? "Yes" : "No"}"),
+                    CustomCard("Board: $_deviceBoard"),
+                    CustomCard(
+                        "Total RAM: ${num.parse((_totalMemory / 1000 / 1000 / 1000).toStringAsFixed(2))} GB"),
+                    CustomCard("Kernel architecture: $_kernelArch"),
+                    CustomCard("Kernel bitness: $_kernelBitness bit"),
+                    CustomCard("Kernel version: $_kernelVersion"),
+                    CustomCard("Amount of cores: ${_cores.length}"),
+                  ]),
+                )
+              ],
+            )));
     ;
   }
 }

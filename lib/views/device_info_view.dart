@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:system_info2/system_info2.dart';
 
 import '../widgets/card_widget.dart';
+import '../widgets/app_bar_widget.dart';
 
 class DeviceInfoView extends StatelessWidget {
   final String _deviceName;
@@ -37,20 +38,7 @@ class DeviceInfoView extends StatelessWidget {
             radius: const Radius.circular(4),
             child: CustomScrollView(
               slivers: <Widget>[
-                const SliverAppBar(
-                  expandedHeight: 150,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: Text(
-                      "Device info",
-                      style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 32,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    titlePadding:
-                        EdgeInsetsDirectional.only(start: 24, bottom: 30),
-                  ),
-                ),
+                const ScrollingAppBar(),
                 SliverList(
                   delegate: SliverChildListDelegate([
                     CustomCard("Device: $_deviceName"),
@@ -64,7 +52,7 @@ class DeviceInfoView extends StatelessWidget {
                     CustomCard("Kernel architecture: $_kernelArch"),
                     CustomCard("Kernel bitness: $_kernelBitness bit"),
                     CustomCard("Kernel version: $_kernelVersion"),
-                    CustomCard("Amount of cores: ${_cores.length}"),
+                    CustomCard("Core count: ${_cores.length}"),
                   ]),
                 )
               ],

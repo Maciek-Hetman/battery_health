@@ -2,6 +2,7 @@ import 'package:battery_health/views/device_info_view.dart';
 import 'package:battery_health/views/no_battery_info_view.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:root/root.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:battery_plus/battery_plus.dart';
@@ -24,6 +25,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Battery battery = Battery();
+
   final _materialBlue = const Color(0x002196f3);
 
   var _rootAccess = false;
@@ -39,8 +42,6 @@ class _MyAppState extends State<MyApp> {
   var _deviceManufacturer;
   var _deviceBoard;
   var _deviceBrand;
-
-  var battery = Battery();
 
   final List<Widget> _pages = [
     const LoadingScreen(),

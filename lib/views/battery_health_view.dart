@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/card_widget.dart';
+import '../widgets/app_bar_widget.dart';
 
 class BatteryHealthView extends StatelessWidget {
   final String _batteryHealth;
@@ -28,19 +29,7 @@ class BatteryHealthView extends StatelessWidget {
         child: Scrollbar(
             child: CustomScrollView(
           slivers: <Widget>[
-            const SliverAppBar(
-              expandedHeight: 150,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  "Battery health",
-                  style: TextStyle(
-                      fontFamily: "Roboto",
-                      fontSize: 32,
-                      fontWeight: FontWeight.w400),
-                ),
-                titlePadding: EdgeInsetsDirectional.only(start: 24, bottom: 30),
-              ),
-            ),
+            const ScrollingAppBar(),
             SliverList(
               delegate: SliverChildListDelegate([
                 CustomCard("Battery level: $_batteryLevel%"),

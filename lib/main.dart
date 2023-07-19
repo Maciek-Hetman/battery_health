@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:root/root.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:battery_plus/battery_plus.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'dart:async';
 
@@ -70,7 +71,8 @@ class _MyAppState extends State<MyApp> {
 
       final batteryLevel = await battery.batteryLevel;
       final batteryState = await battery.batteryState;
-      var batteryStateString = "Unknown";
+
+      String batteryStateString;
 
       switch (batteryState) {
         case BatteryState.charging:
@@ -197,10 +199,10 @@ class _MyAppState extends State<MyApp> {
               bottomNavigationBar: BottomNavigationBar(
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.battery_4_bar_rounded),
+                      icon: FaIcon(FontAwesomeIcons.batteryThreeQuarters),
                       label: 'Battery info'),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.phonelink_setup_rounded),
+                      icon: FaIcon(FontAwesomeIcons.mobile),
                       label: 'Device info'),
                 ],
                 currentIndex: _index,

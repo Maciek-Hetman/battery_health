@@ -1,38 +1,35 @@
-# Battery health for android
+# Android battery health
 
  Check battery health of your Android phone. Requires root access.
 
-## ONLY TESTED ON ANDROID 12 and 13
+ The app is built using Flutter and Material3 (Also known as Material You) design.
+ **This app works only with some rooted devices**
 
-Tested devices:
+ Tested devices:
 
-- Redmi Note 8 Pro, CherishOS 4.5, Magisk 25.2
-- Xiaomi 12X, Xiaomi.eu idk what version, Magisk 25.2
-- Samsung Galaxy Note 9, OneUI 4, No root
+| Device            | Android version | Working |
+| ----------------- | --------------- | ------- |
+| Redmi Note 8 Pro  | 13              | Yes     |
+| Sony Xperia XZ1   | 13              | Yes     |
+| Samsung Galaxy S6 | 12              | No      |
 
-The app is built using Flutter and Material3 (Also known as Material You) design. Monet engine does work.
+ Features:
 
-Features:
-
-- Battery health percentage*
-- Cycle count*
-- Full charge and design capacity values*
+- Battery health percentage
+- Cycle count
+- Full charge and design capacity values
 - Basic device info
 
-* - these features work only with rooted devices
 
 ## Screenshots
 
-![Current state of app](screenshots/screenshot1.png)
-![Current state of app](screenshots/screenshot2.png)
+| Theme | Battery health                            | Device info                            |
+| ----- | ----------------------------------------- | -------------------------------------- |
+| Light | ![](screenshots/battery_health_light.png) | ![](screenshots/device_info_light.png) |
+| Dark  | ![](screenshots/battery_health_dark.png)  | ![](screenshots/device_info_dark.png)  |
 
 ### To-do
 
-- [ ] Add more up-to-date screenshots 
-- [ ] Split app code into more files instead of creating one giant main.dart file 
-- [ ] Add tabs at the bottom with categories (device, battery, DRM, SafetyNet) 
-  - [ ] Make sure that back button works with it 
-- [ ] Add SafetyNet checker 
-- [ ] Add DRM info 
-- [ ] Add device info 
-- [ ] Make sure that app works without root 
+- [ ] Add more up-to-date screenshots
+- [ ] Add SafetyNet checker
+- [ ] Add DRM info

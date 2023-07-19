@@ -5,15 +5,20 @@ class ScrollingAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SliverAppBar(
+    return SliverAppBar(
       expandedHeight: 150,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
           "Device info",
           style: TextStyle(
-              fontFamily: "Roboto", fontSize: 32, fontWeight: FontWeight.w400),
+              fontFamily: "Roboto",
+              fontSize: 32,
+              fontWeight: FontWeight.w400,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black),
         ),
-        titlePadding: EdgeInsetsDirectional.only(start: 24, bottom: 30),
+        titlePadding: const EdgeInsetsDirectional.only(start: 24, bottom: 30),
       ),
     );
   }

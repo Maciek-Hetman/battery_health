@@ -29,7 +29,7 @@ class BatteryHealthView extends StatelessWidget {
         child: Scrollbar(
             child: CustomScrollView(
           slivers: <Widget>[
-            const ScrollingAppBar(),
+            const ScrollingAppBar("Battery health"),
             SliverList(
               delegate: SliverChildListDelegate([
                 CustomCard("Battery level: $_batteryLevel%"),

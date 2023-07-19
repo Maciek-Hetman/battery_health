@@ -38,7 +38,7 @@ class DeviceInfoView extends StatelessWidget {
             radius: const Radius.circular(4),
             child: CustomScrollView(
               slivers: <Widget>[
-                const ScrollingAppBar(),
+                const ScrollingAppBar("Device info"),
                 SliverList(
                   delegate: SliverChildListDelegate([
                     CustomCard("Device: $_deviceName"),

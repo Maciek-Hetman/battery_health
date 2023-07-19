@@ -29,6 +29,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  battery_plus: ^4.0.1
   device_info_plus: ^9.0.2
   dynamic_color: ^1.6.2
   flutter:

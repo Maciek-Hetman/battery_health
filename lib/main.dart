@@ -4,15 +4,18 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:root/root.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:battery_plus/battery_plus.dart';
 
 import 'dart:async';
 
 import 'views/battery_health_view.dart';
 import 'views/loading_screen_view.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _MyAppState();
@@ -35,6 +38,8 @@ class _MyAppState extends State<MyApp> {
   var _deviceManufacturer;
   var _deviceBoard;
   var _deviceBrand;
+
+  var battery = Battery();
 
   final List<Widget> _pages = [
     const LoadingScreen(),
@@ -63,12 +68,33 @@ class _MyAppState extends State<MyApp> {
       await checkFullCharge();
       await getDeviceInfo();
 
+      final batteryLevel = await battery.batteryLevel;
+      final batteryState = await battery.batteryState;
+      var batteryStateString = "Unknown";
+
+      switch (batteryState) {
+        case BatteryState.charging:
+          batteryStateString = "Charging";
+          break;
+        case BatteryState.discharging:
+          batteryStateString = "Discharging";
+          break;
+        case BatteryState.full:
+          batteryStateString = "Full";
+          break;
+        default:
+          batteryStateString = "Unknown";
+          break;
+      }
+
       setState(() {
         _pages[0] = BatteryHealthView(
           _batteryHealth,
           _cycleCount,
           _fullChargeReadable,
           _designCapacityReadable,
+          batteryLevel.toString(),
+          batteryStateString,
         );
 
         _pages[1] = DeviceInfoView(_deviceName, _deviceManufacturer,

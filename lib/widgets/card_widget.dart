@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomCard extends StatelessWidget {
   final _text;
 
-  CustomCard(this._text);
+  const CustomCard(this._text, {super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -32,7 +32,7 @@ class NoBatteryInfoView extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 child:
                     const Text('Battery info', style: TextStyle(fontSize: 30))),
-            CustomCard("Could not fetch battery info"),
+            const CustomCard("Could not fetch battery info"),
             CustomCard("Root status: $_rootAccess"),
             Padding(
               padding: const EdgeInsets.all(8),

@@ -196,21 +196,40 @@ class _MyAppState extends State<MyApp> {
               colorScheme: darkColorScheme),
           themeMode: ThemeMode.system,
           home: Scaffold(
-              bottomNavigationBar: BottomNavigationBar(
-                items: const <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                      icon: FaIcon(FontAwesomeIcons.batteryThreeQuarters),
-                      label: 'Battery info'),
-                  BottomNavigationBarItem(
-                      icon: FaIcon(FontAwesomeIcons.mobile),
-                      label: 'Device info'),
-                ],
-                currentIndex: _index,
-                onTap: (index) {
-                  setState(() {
-                    _index = index;
-                  });
-                },
+              bottomNavigationBar: BottomNavigationBarTheme(
+                data: BottomNavigationBarThemeData(
+                  type: BottomNavigationBarType.shifting,
+                  enableFeedback: true,
+                  elevation: 10,
+                  backgroundColor:
+                      Theme.of(context).brightness == Brightness.light
+                          ? darkColorScheme.background
+                          : lightColorScheme.background,
+                  selectedItemColor:
+                      Theme.of(context).brightness == Brightness.light
+                          ? darkColorScheme.primary
+                          : lightColorScheme.primary,
+                  unselectedItemColor:
+                      Theme.of(context).brightness == Brightness.light
+                          ? darkColorScheme.onBackground
+                          : lightColorScheme.onBackground,
+                ),
+                child: BottomNavigationBar(
+                  items: const <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                        icon: FaIcon(FontAwesomeIcons.batteryThreeQuarters),
+                        label: 'Battery info'),
+                    BottomNavigationBarItem(
+                        icon: FaIcon(FontAwesomeIcons.mobile),
+                        label: 'Device info'),
+                  ],
+                  currentIndex: _index,
+                  onTap: (index) {
+                    setState(() {
+                      _index = index;
+                    });
+                  },
+                ),
               ),
               body: _pages[_index]),
         );

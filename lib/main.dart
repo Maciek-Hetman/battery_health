@@ -1,5 +1,5 @@
-import 'package:battery_health/device_info_view.dart';
-import 'package:battery_health/no_battery_info_view.dart';
+import 'package:battery_health/views/device_info_view.dart';
+import 'package:battery_health/views/no_battery_info_view.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:root/root.dart';
@@ -7,8 +7,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 
 import 'dart:async';
 
-import './battery_health_view.dart';
-import './loading_screen.dart';
+import 'views/battery_health_view.dart';
+import 'views/loading_screen_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,8 +21,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _materialBlue = const Color(0x002196f3);
-
-  final _controller = ScrollController();
 
   var _rootAccess = false;
   var _cycleCount = "-";
@@ -67,14 +65,11 @@ class _MyAppState extends State<MyApp> {
 
       setState(() {
         _pages[0] = BatteryHealthView(
-            _batteryHealth,
-            _cycleCount,
-            _fullChargeReadable,
-            _designCapacityReadable,
-            _deviceName,
-            _deviceManufacturer,
-            _deviceAndroidVersion,
-            _rootAccess);
+          _batteryHealth,
+          _cycleCount,
+          _fullChargeReadable,
+          _designCapacityReadable,
+        );
 
         _pages[1] = DeviceInfoView(_deviceName, _deviceManufacturer,
             _deviceAndroidVersion, _deviceBoard, _deviceBrand, _rootAccess);

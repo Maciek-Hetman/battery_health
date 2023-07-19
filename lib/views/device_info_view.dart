@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:system_info2/system_info2.dart';
 
-import './card_widget.dart';
+import '../widgets/card_widget.dart';
 
 class DeviceInfoView extends StatelessWidget {
-  final _deviceName;
-  final _deviceAndroidVersion;
-  final _deviceManufacturer;
-  final _deviceBoard;
-  final _deviceBrand;
-  final _rootAccess;
+  final String _deviceName;
+  final String _deviceAndroidVersion;
+  final String _deviceManufacturer;
+  final String _deviceBoard;
+  final String _deviceBrand;
+  final bool _rootAccess;
 
   final _kernelArch = SysInfo.kernelArchitecture;
   final _kernelBitness = SysInfo.kernelBitness;
@@ -69,6 +69,5 @@ class DeviceInfoView extends StatelessWidget {
                 )
               ],
             )));
-    ;
   }
 }

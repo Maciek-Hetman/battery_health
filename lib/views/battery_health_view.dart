@@ -1,28 +1,17 @@
 import 'package:flutter/material.dart';
 
-import './card_widget.dart';
+import '../widgets/card_widget.dart';
 
 class BatteryHealthView extends StatelessWidget {
   final String _batteryHealth;
   final String _cycleCount;
   final String _fullChargeReadable;
   final String _designCapacityReadable;
-  final String _deviceName;
-  final String _deviceManufacturer;
-  final String _deviceAndroidVersion;
-  final bool _rootAccess;
 
   final _controller = ScrollController();
 
-  BatteryHealthView(
-      this._batteryHealth,
-      this._cycleCount,
-      this._fullChargeReadable,
-      this._designCapacityReadable,
-      this._deviceName,
-      this._deviceManufacturer,
-      this._deviceAndroidVersion,
-      this._rootAccess,
+  BatteryHealthView(this._batteryHealth, this._cycleCount,
+      this._fullChargeReadable, this._designCapacityReadable,
       {super.key});
 
   Widget build(BuildContext context) {

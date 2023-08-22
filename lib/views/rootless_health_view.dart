@@ -1,12 +1,26 @@
-import 'package:battery_health/widgets/card_widget.dart';
 import 'package:flutter/material.dart';
 
-class NoBatteryInfoView extends StatelessWidget {
-  final bool _rootAccess;
-  final String _message =
-      "If you see this screen, you probably don't have root access or have denied access in magisk. This function requires rooted device, without it this function won't work.";
+import '../widgets/card_widget.dart';
 
-  const NoBatteryInfoView(this._rootAccess, {super.key});
+class RootlessHealthView extends StatefulWidget {
+  final bool rootAccess;
+  final String batteryHealth;
+  final String batteryTemperature;
+
+  const RootlessHealthView(
+      {Key? key,
+      required this.rootAccess,
+      required this.batteryHealth,
+      required this.batteryTemperature})
+      : super(key: key);
+
+  @override
+  _RootlessHealthViewState createState() => _RootlessHealthViewState();
+}
+
+class _RootlessHealthViewState extends State<RootlessHealthView> {
+  final String _message =
+      "If you see this message, you probably don't have root access or have denied access in magisk. This applicatoin requires root access for full functionality.";
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +46,11 @@ class NoBatteryInfoView extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 child:
                     const Text('Battery info', style: TextStyle(fontSize: 30))),
-            const CustomCard("Could not fetch battery info"),
-            CustomCard("Root status: $_rootAccess"),
+            CustomCard("Root status: ${widget.rootAccess.toString()}"),
+            CustomCard("Battery health: ${widget.batteryHealth}"),
+            CustomCard("Battery temperature: ${widget.batteryTemperature}°C"),
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Text(_message,
                   style: const TextStyle(
                       fontSize: 20, fontStyle: FontStyle.italic),

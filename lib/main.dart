@@ -1,14 +1,15 @@
 import 'package:battery_health/views/device_info_view.dart';
-import 'package:battery_health/views/no_battery_info_view.dart';
+import 'package:battery_health/views/rootless_health_view.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:root/root.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:battery_plus/battery_plus.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'dart:async';
+import 'package:battery_info/battery_info_plugin.dart';
+import 'package:battery_info/enums/charging_status.dart';
 
+import 'dart:async';
 import 'views/battery_health_view.dart';
 import 'views/loading_screen_view.dart';
 
@@ -24,8 +25,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Battery battery = Battery();
-
   final _materialBlue = const Color(0x002196f3);
 
   var _rootAccess = false;
@@ -64,30 +63,47 @@ class _MyAppState extends State<MyApp> {
     bool result = await Root.isRooted() as bool;
     _rootAccess = result;
 
+    final battery = await BatteryInfoPlugin().androidBatteryInfo;
+    String batteryStateString;
+
+    final String batteryLevel = battery?.batteryLevel.toString() ?? "Unknown";
+    final ChargingStatus batteryState =
+        battery?.chargingStatus ?? ChargingStatus.Unknown;
+    String batteryHealth = battery?.health ?? "Unknown";
+    final String batteryTemperature =
+        battery?.temperature.toString() ?? "Unknown";
+
+    switch (batteryHealth) {
+      case "health_good":
+        batteryHealth = "Good";
+        break;
+      case "health_bad":
+        batteryHealth = "Bad";
+        break;
+      default:
+        batteryHealth = "Unknown";
+        break;
+    }
+
+    switch (batteryState) {
+      case ChargingStatus.Charging:
+        batteryStateString = "Charging";
+        break;
+      case ChargingStatus.Discharging:
+        batteryStateString = "Discharging";
+        break;
+      case ChargingStatus.Full:
+        batteryStateString = "Full";
+        break;
+      default:
+        batteryStateString = "Unknown";
+        break;
+    }
+
     if (_rootAccess == true) {
       await checkCycleCount();
       await checkFullCharge();
       await getDeviceInfo();
-
-      final batteryLevel = await battery.batteryLevel;
-      final batteryState = await battery.batteryState;
-
-      String batteryStateString;
-
-      switch (batteryState) {
-        case BatteryState.charging:
-          batteryStateString = "Charging";
-          break;
-        case BatteryState.discharging:
-          batteryStateString = "Discharging";
-          break;
-        case BatteryState.full:
-          batteryStateString = "Full";
-          break;
-        default:
-          batteryStateString = "Unknown";
-          break;
-      }
 
       setState(() {
         _pages[0] = BatteryHealthView(
@@ -105,7 +121,10 @@ class _MyAppState extends State<MyApp> {
     } else {
       await getDeviceInfo();
       setState(() {
-        _pages[0] = NoBatteryInfoView(_rootAccess);
+        _pages[0] = RootlessHealthView(
+            rootAccess: _rootAccess,
+            batteryHealth: batteryHealth,
+            batteryTemperature: batteryTemperature);
         _pages[1] = DeviceInfoView(_deviceName, _deviceManufacturer,
             _deviceAndroidVersion, _deviceBoard, _deviceBrand, _rootAccess);
       });

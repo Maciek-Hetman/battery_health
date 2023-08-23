@@ -5,12 +5,12 @@ import '../widgets/card_widget.dart';
 import '../widgets/app_bar_widget.dart';
 
 class DeviceInfoView extends StatelessWidget {
-  final String _deviceName;
-  final String _deviceAndroidVersion;
-  final String _deviceManufacturer;
-  final String _deviceBoard;
-  final String _deviceBrand;
-  final bool _rootAccess;
+  final String deviceName;
+  final String deviceAndroidVersion;
+  final String deviceManufacturer;
+  final String deviceBoard;
+  final String deviceBrand;
+  final bool rootAccess;
 
   final _kernelArch = SysInfo.kernelArchitecture;
   final _kernelBitness = SysInfo.kernelBitness;
@@ -20,14 +20,15 @@ class DeviceInfoView extends StatelessWidget {
 
   final _controller = ScrollController();
 
-  DeviceInfoView(
-      this._deviceName,
-      this._deviceManufacturer,
-      this._deviceAndroidVersion,
-      this._deviceBoard,
-      this._deviceBrand,
-      this._rootAccess,
-      {super.key});
+  DeviceInfoView({
+    Key? key,
+    required this.deviceName,
+    required this.deviceAndroidVersion,
+    required this.deviceManufacturer,
+    required this.deviceBoard,
+    required this.deviceBrand,
+    required this.rootAccess,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,21 +39,23 @@ class DeviceInfoView extends StatelessWidget {
             radius: const Radius.circular(4),
             child: CustomScrollView(
               slivers: <Widget>[
-                const ScrollingAppBar("Device info"),
+                const ScrollingAppBar(title: "Device info"),
                 SliverList(
                   delegate: SliverChildListDelegate([
-                    CustomCard("Device: $_deviceName"),
-                    CustomCard("Brand: $_deviceBrand"),
-                    CustomCard("Manufacturer: $_deviceManufacturer"),
-                    CustomCard("Android version: $_deviceAndroidVersion"),
-                    CustomCard("Root access: ${_rootAccess ? "Yes" : "No"}"),
-                    CustomCard("Board: $_deviceBoard"),
+                    CustomCard(text: "Device: $deviceName"),
+                    CustomCard(text: "Brand: $deviceBrand"),
+                    CustomCard(text: "Manufacturer: $deviceManufacturer"),
+                    CustomCard(text: "Android version: $deviceAndroidVersion"),
                     CustomCard(
-                        "Total RAM: ${num.parse((_totalMemory / 1000 / 1000 / 1000).toStringAsFixed(2))} GB"),
-                    CustomCard("Kernel architecture: $_kernelArch"),
-                    CustomCard("Kernel bitness: $_kernelBitness bit"),
-                    CustomCard("Kernel version: $_kernelVersion"),
-                    CustomCard("Core count: ${_cores.length}"),
+                        text: "Root access: ${rootAccess ? "Yes" : "No"}"),
+                    CustomCard(text: "Board: $deviceBoard"),
+                    CustomCard(
+                        text:
+                            "Total RAM: ${num.parse((_totalMemory / 1000 / 1000 / 1000).toStringAsFixed(2))} GB"),
+                    CustomCard(text: "Kernel architecture: $_kernelArch"),
+                    CustomCard(text: "Kernel bitness: $_kernelBitness bit"),
+                    CustomCard(text: "Kernel version: $_kernelVersion"),
+                    CustomCard(text: "Core count: ${_cores.length}"),
                   ]),
                 )
               ],

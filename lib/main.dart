@@ -115,8 +115,13 @@ class _MyAppState extends State<MyApp> {
           batteryStateString,
         );
 
-        _pages[1] = DeviceInfoView(_deviceName, _deviceManufacturer,
-            _deviceAndroidVersion, _deviceBoard, _deviceBrand, _rootAccess);
+        _pages[1] = DeviceInfoView(
+            deviceName: _deviceName,
+            deviceManufacturer: _deviceManufacturer,
+            deviceAndroidVersion: _deviceAndroidVersion,
+            deviceBoard: _deviceBoard,
+            deviceBrand: _deviceBrand,
+            rootAccess: _rootAccess);
       });
     } else {
       await getDeviceInfo();
@@ -126,8 +131,13 @@ class _MyAppState extends State<MyApp> {
             batteryHealth: batteryHealth,
             batteryTemperature: batteryTemperature,
             batteryLevel: batteryLevel);
-        _pages[1] = DeviceInfoView(_deviceName, _deviceManufacturer,
-            _deviceAndroidVersion, _deviceBoard, _deviceBrand, _rootAccess);
+        _pages[1] = DeviceInfoView(
+            deviceName: _deviceName,
+            deviceManufacturer: _deviceManufacturer,
+            deviceAndroidVersion: _deviceAndroidVersion,
+            deviceBoard: _deviceBoard,
+            deviceBrand: _deviceBrand,
+            rootAccess: _rootAccess);
       });
     }
   }

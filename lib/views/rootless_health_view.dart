@@ -31,7 +31,7 @@ class _RootlessHealthViewState extends State<RootlessHealthView> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-        const ScrollingAppBar("Battery Health"),
+        const ScrollingAppBar(title: "Battery Health"),
         SliverList(
           delegate: SliverChildListDelegate([
             Padding(
@@ -57,8 +57,9 @@ class _RootlessHealthViewState extends State<RootlessHealthView> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 child:
                     const Text('Battery info', style: TextStyle(fontSize: 30))),
-            CustomCard("Battery health: ${widget.batteryHealth}"),
-            CustomCard("Battery temperature: ${widget.batteryTemperature}°C"),
+            CustomCard(text: "Battery health: ${widget.batteryHealth}"),
+            CustomCard(
+                text: "Battery temperature: ${widget.batteryTemperature}°C"),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Text(_message,

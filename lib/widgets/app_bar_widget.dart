@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ScrollingAppBar extends StatelessWidget {
-  final String _title;
+  final String title;
 
-  const ScrollingAppBar(this._title, {super.key});
+  const ScrollingAppBar({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class ScrollingAppBar extends StatelessWidget {
       expandedHeight: 150,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
-          _title,
+          title,
           style: TextStyle(
               fontFamily: "Roboto",
               fontSize: 32,

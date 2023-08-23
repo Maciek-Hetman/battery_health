@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
-  final _text;
+  final String text;
 
-  const CustomCard(this._text, {super.key});
+  // const CustomCard(this._text, {super.key});
+  const CustomCard({Key? key, required String this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class CustomCard extends StatelessWidget {
           child: Padding(
         padding: const EdgeInsets.all(20),
         child: Text(
-          _text,
+          text,
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
         ),
       )),

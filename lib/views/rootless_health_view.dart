@@ -48,6 +48,7 @@ class _RootlessHealthViewState extends State<RootlessHealthView> {
                   textStyle: const TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
               ),

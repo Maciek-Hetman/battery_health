@@ -33,6 +33,11 @@ class RootlessHealthViewState extends State<RootlessHealthView> {
         const ScrollingAppBar(title: "Battery Health"),
         SliverList(
           delegate: SliverChildListDelegate([
+            Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                child: const Text('Battery level',
+                    style: TextStyle(fontSize: 30))),
             CustomBatteryGauge(batteryLevel: widget.batteryLevel),
             Container(
                 padding:

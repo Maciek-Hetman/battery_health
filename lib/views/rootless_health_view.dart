@@ -1,6 +1,7 @@
 import 'package:animated_battery_gauge/animated_battery_gauge.dart';
 import 'package:animated_battery_gauge/battery_gauge.dart';
 import 'package:battery_health/widgets/app_bar_widget.dart';
+import 'package:battery_health/widgets/battery_gauge.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/card_widget.dart';
@@ -20,10 +21,10 @@ class RootlessHealthView extends StatefulWidget {
       : super(key: key);
 
   @override
-  _RootlessHealthViewState createState() => _RootlessHealthViewState();
+  RootlessHealthViewState createState() => RootlessHealthViewState();
 }
 
-class _RootlessHealthViewState extends State<RootlessHealthView> {
+class RootlessHealthViewState extends State<RootlessHealthView> {
   final String _message =
       "You probably don't have rooted device or have denied root access in magisk. This app requires root access for full functionality.";
 
@@ -34,25 +35,7 @@ class _RootlessHealthViewState extends State<RootlessHealthView> {
         const ScrollingAppBar(title: "Battery Health"),
         SliverList(
           delegate: SliverChildListDelegate([
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 22),
-              child: Center(
-                child: AnimatedBatteryGauge(
-                  duration: const Duration(seconds: 2),
-                  value: widget.batteryLevel.toDouble(),
-                  size: const Size(220, 110),
-                  borderColor: Colors.grey.shade700,
-                  valueColor: Colors.green,
-                  mode: BatteryGaugePaintMode.grid,
-                  hasText: true,
-                  textStyle: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
+            CustomBatteryGauge(batteryLevel: widget.batteryLevel),
             Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),

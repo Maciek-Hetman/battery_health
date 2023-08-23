@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
     final battery = await BatteryInfoPlugin().androidBatteryInfo;
     String batteryStateString;
 
-    final String batteryLevel = battery?.batteryLevel.toString() ?? "Unknown";
+    final int batteryLevel = battery?.batteryLevel ?? 0;
     final ChargingStatus batteryState =
         battery?.chargingStatus ?? ChargingStatus.Unknown;
     String batteryHealth = battery?.health ?? "Unknown";
@@ -124,7 +124,8 @@ class _MyAppState extends State<MyApp> {
         _pages[0] = RootlessHealthView(
             rootAccess: _rootAccess,
             batteryHealth: batteryHealth,
-            batteryTemperature: batteryTemperature);
+            batteryTemperature: batteryTemperature,
+            batteryLevel: batteryLevel);
         _pages[1] = DeviceInfoView(_deviceName, _deviceManufacturer,
             _deviceAndroidVersion, _deviceBoard, _deviceBrand, _rootAccess);
       });

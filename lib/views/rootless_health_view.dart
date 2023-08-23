@@ -1,5 +1,3 @@
-import 'package:animated_battery_gauge/animated_battery_gauge.dart';
-import 'package:animated_battery_gauge/battery_gauge.dart';
 import 'package:battery_health/widgets/app_bar_widget.dart';
 import 'package:battery_health/widgets/battery_gauge.dart';
 import 'package:flutter/material.dart';

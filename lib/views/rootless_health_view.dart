@@ -24,7 +24,7 @@ class RootlessHealthView extends StatefulWidget {
 
 class _RootlessHealthViewState extends State<RootlessHealthView> {
   final String _message =
-      "If you see this message, you probably don't have root access or have denied access in magisk. This applicatoin requires root access for full functionality.";
+      "You probably don't have rooted device or have denied root access in magisk. This app requires root access for full functionality.";
 
   @override
   Widget build(BuildContext context) {

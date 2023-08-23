@@ -23,10 +23,10 @@
 
 ## Screenshots
 
-| Theme | Battery health                            | Device info                            |
-| ----- | ----------------------------------------- | -------------------------------------- |
-| Light | ![](screenshots/battery_health_light.png) | ![](screenshots/device_info_light.png) |
-| Dark  | ![](screenshots/battery_health_dark.png)  | ![](screenshots/device_info_dark.png)  |
+| Theme | Battery health                            | Device info                            | No root                             |
+| ----- | ----------------------------------------- | -------------------------------------- | ----------------------------------- |
+| Light | ![](screenshots/battery_health_light.png) | ![](screenshots/device_info_light.png) | ![](screenshots/rootless_light.jpg) |
+| Dark  | ![](screenshots/battery_health_dark.png)  | ![](screenshots/device_info_dark.png)  | ![](screenshots/rootless_dark.jpg)  |
 
 ### To-do
 

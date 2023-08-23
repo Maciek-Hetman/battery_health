@@ -1,5 +1,6 @@
 import 'package:animated_battery_gauge/animated_battery_gauge.dart';
 import 'package:animated_battery_gauge/battery_gauge.dart';
+import 'package:battery_health/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/card_widget.dart';
@@ -30,19 +31,7 @@ class _RootlessHealthViewState extends State<RootlessHealthView> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-        const SliverAppBar(
-          expandedHeight: 150,
-          flexibleSpace: FlexibleSpaceBar(
-            title: Text(
-              "Battery health",
-              style: TextStyle(
-                  fontFamily: "Roboto",
-                  fontSize: 34,
-                  fontWeight: FontWeight.w400),
-            ),
-            titlePadding: EdgeInsetsDirectional.only(start: 24, bottom: 30),
-          ),
-        ),
+        const ScrollingAppBar("Battery Health"),
         SliverList(
           delegate: SliverChildListDelegate([
             Padding(
